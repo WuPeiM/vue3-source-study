@@ -18,8 +18,6 @@ const {
   },
 })
 
-console.log(format, positionals)
-
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = dirname(__filename)
 
@@ -28,7 +26,6 @@ const require = createRequire(import.meta.url)
 const target = positionals.length ? positionals[0] : 'vue'
 
 const entry = resolve(__dirname, `../packages/${target}/src/index.ts`)
-console.log('entry', entry)
 
 /**
  * --format cjs or esm
