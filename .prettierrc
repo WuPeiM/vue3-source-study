@@ -1,0 +1,8 @@
+{
+  "$schema": "https://json.schemastore.org/jsconfig",
+  "semi": false,
+  "singleQuote": true,
+  "htmlWhitespaceSensitivity": "ignore",
+  "trailingComma": "all",
+  "arrowParens": "avoid"
+}
