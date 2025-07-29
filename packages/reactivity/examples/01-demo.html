@@ -15,13 +15,23 @@
 
       const count = ref(0)
 
-      effect(() => {
-        console.log('effect1 count.value ==> ', count.value)
-      })
-      //   写了多个effect，更新的时候有问题，effect2的函数覆盖了effect1
-      effect(() => {
-        console.log('effect2 count.value ==>', count.value)
-      })
+      // effect(() => {
+      //   effect(() => {
+      //     console.log('嵌套的 count.value ==>', count.value)
+      //   })
+      //   console.log('外部的 count.value ==> ', count.value)
+      // })
+
+      effect(
+        () => {
+          console.log('count.value ==>', count.value)
+        },
+        {
+          scheduler() {
+            console.log('触发了调度器')
+          },
+        },
+      )
 
       setTimeout(() => {
         count.value = 2
