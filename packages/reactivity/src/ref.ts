@@ -7,23 +7,29 @@ enum ReactiveFlags {
 
 class RefImpl {
   // 保存实际的值
-  _value
+  _value;
+  // ref标记，表示这个是一个ref
+  [ReactiveFlags.IS_REF] = true
   // 保存和 effect 之间的关联关系
-  sub
+  subs
   constructor(value) {
     this._value = value
   }
 
   get value() {
     // 收集依赖
-    this.sub = activeSub
+    if (activeSub) {
+      // 如果activeSub有，保存起来，等更新的时候，触发
+      this.subs = activeSub
+    }
+
     return this._value
   }
 
   set value(newValue) {
     // 触发更新
     this._value = newValue
-    this.sub?.()
+    this.subs?.()
   }
 }
 
