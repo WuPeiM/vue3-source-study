@@ -1,4 +1,4 @@
-import { Link } from './system'
+import { Link, startTrack, endTrack } from './system'
 
 // 用来保存当前正在执行的 effect
 export let activeSub
@@ -20,7 +20,7 @@ export class ReactiveEffect {
     const prevSub = activeSub
 
     // 每次执行前，将depsTail设置为undefined，作为一个标记，用于后面判断复用
-    this.depsTail = undefined
+    startTrack(this)
 
     // 每次执行之前，把 this 放到 activeSub 上面
     activeSub = this
@@ -28,6 +28,7 @@ export class ReactiveEffect {
     try {
       return this.fn()
     } finally {
+      endTrack(this)
       // 执行完成后，恢复之前的 effect
       activeSub = prevSub
     }
